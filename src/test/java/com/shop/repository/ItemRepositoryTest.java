@@ -1,14 +1,20 @@
 package com.shop.repository;
 
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.entity.Item;
+import com.shop.entity.QItem;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -70,7 +76,7 @@ public class ItemRepositoryTest {
 
     }
 
-     */
+
 
     @Test
     @DisplayName("상품명, 상품상세설명 OR 테스트")
@@ -85,5 +91,135 @@ public class ItemRepositoryTest {
 
 
     }
+
+
+
+    @Test
+    @DisplayName("가격 LessThan 테스트")
+    public void findByItemNmOrItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByPriceLessThan(10007);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+
+    }
+
+
+    @Test
+    @DisplayName("가격 내림차순 조회 테스트")
+    public void findByItemNmOrItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByPriceLessThan(10004);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+
+    }
+
+
+
+    @Test
+    @DisplayName("price 10003~10006 조회")
+    public void findByItemNmOrItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByPriceBetween(10003,10006);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+
+    }
+
+
+    @Test
+    @DisplayName("id 6이상")
+    public void findByItemNmOrItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByIdGreaterThanEqual(6L);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+
+    }
+
+    @Test
+    @DisplayName("and연산자를 이용")
+    public void andtest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByPriceGreaterThanAndPriceLessThan(10002,10007);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+    }
+
+
+    @Test
+    @DisplayName("쿼리 어노테이션을 이용한 상품 조회")
+    public void findByItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByItemDetail("테스트 상품 상세 설명");
+        for(Item item : itemList){
+            System.out.println(item.toString());
+
+        }
+
+    }
+
+
+    @Test
+    @DisplayName("nativeQuery 속성을 이용한 상품 조회 테스트")
+    public void findByItemDetailByNative(){
+        this.createItemList();
+        List<Item> itemList=
+                itemRepository.findByItemDetailByNative("테스트 상품 상세 설명");
+        for(Item item : itemList){
+            System.out.println(item.toString());
+        }
+
+    }
+    */
+
+    @PersistenceContext
+    EntityManager em;
+
+    @Test
+    @DisplayName("쿼리dsl 조회 테스트1")
+    public void queryDslTest(){
+
+
+        this.createItemList();
+        JPAQueryFactory queryFactory = new JPAQueryFactory((jakarta.persistence.EntityManager) em);
+
+        QItem qItem = QItem.item;
+
+        JPAQuery<Item> query = queryFactory.selectFrom(qItem)
+                .where(qItem.itemSellStatus.eq(ItemSellStatus.SELL))
+                .where(qItem.itemDetail.like("%"+"테스트 상품 상세 설명"+"%"))
+                .orderBy(qItem.price.desc());
+
+        List<Item> itemList = query.fetch();
+
+        for(Item item : itemList){
+            System.out.println(item.toString());
+        }
+    }
+
+
 
 }
