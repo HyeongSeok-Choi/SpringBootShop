@@ -21,9 +21,37 @@ public class SecurityConfig {
 
 
     @Bean
-    AuthenticationManager authenticationManager(
-            HttpSecurity http) throws Exception {
-        return null;
+    SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
+       /* http.authorizeHttpRequests((authorizeHttpRequests)->authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+        );*/
+
+        http.formLogin((formLogin)->
+                        formLogin
+                            .loginPage("/members/login")
+                                .defaultSuccessUrl("/")
+                                .usernameParameter("email")
+                                .failureUrl("/members/login/error"))
+
+                .logout((logoutCoinfig)->
+                        logoutCoinfig
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                        .logoutSuccessUrl("/"))
+
+
+                .authorizeRequests((authorizeRequests)->
+                                authorizeRequests
+                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                )
+                .exceptionHandling((exceptionConfig)->
+                        exceptionConfig.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+        ;
+
+        return http.build();
+
+
     }
 
     @Bean
