@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Setter
 @Getter
 @ToString
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @Column

@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @Getter
 
-public class Item {
+public class Item extends BaseEntity {
 
 //만약 이건?
     @Id
@@ -49,7 +49,7 @@ public class Item {
     )
     private List<Member> member;
 
-    private LocalDateTime regTime; //등록 시간
+  //  private LocalDateTime regTime; //등록 시간
 
-    private LocalDateTime updateTime; //수정 시간
+  //  private LocalDateTime updateTime; //수정 시간
 }
