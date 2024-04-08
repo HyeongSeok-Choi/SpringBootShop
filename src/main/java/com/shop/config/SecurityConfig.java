@@ -19,7 +19,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
        /* http.authorizeHttpRequests((authorizeHttpRequests)->authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
@@ -27,7 +26,7 @@ public class SecurityConfig {
 
         http.formLogin((formLogin)->
                         formLogin
-                            .loginPage("/members/login")
+                                .loginPage("/members/login")
                                 .defaultSuccessUrl("/")
                                 .usernameParameter("email")
                                 .failureUrl("/members/login/error"))
@@ -35,24 +34,28 @@ public class SecurityConfig {
                 .logout((logoutCoinfig)->
                         logoutCoinfig
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                        .logoutSuccessUrl("/"))
+                                .logoutSuccessUrl("/"))
+
 
 
                 .authorizeRequests((authorizeRequests)->
-                                authorizeRequests
-                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                        authorizeRequests
+                                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                                .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
+
                 )
                 .exceptionHandling((exceptionConfig)->
                         exceptionConfig.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+
         ;
 
         return http.build();
 
 
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

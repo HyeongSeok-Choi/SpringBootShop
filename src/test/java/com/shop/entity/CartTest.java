@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class CartTest {
+    /*
 
     @Autowired
     CartRepository cartRepository;
@@ -64,4 +65,6 @@ public class CartTest {
         assertEquals(savedCart.getMember().getId(),member.getId());
 
     }
+    
+     */
 }

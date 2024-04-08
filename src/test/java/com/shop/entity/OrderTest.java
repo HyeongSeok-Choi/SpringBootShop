@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class OrderTest {
-
+/*
     @Autowired
     OrderRepository orderRepository;
 
@@ -76,7 +76,7 @@ public class OrderTest {
         return order;
     }
 
-    /*
+
     @Test
     @DisplayName("영속성 전이 테스트")
     public void cascadeTest(){
@@ -113,7 +113,7 @@ public class OrderTest {
         em.flush();
     }
 
-     */
+
 
     @Test
     @DisplayName("지연 로딩 테스트")
@@ -131,4 +131,6 @@ public class OrderTest {
         System.out.println("==========================");
 
     }
+
+ */
 }

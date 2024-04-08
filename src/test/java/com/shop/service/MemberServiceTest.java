@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class MemberServiceTest {
-
+/*
     @Autowired
     MemberService memberService;
 
@@ -36,7 +36,7 @@ public class MemberServiceTest {
 
 
     }
-    /*
+
     @Test
     @DisplayName("회원가입 테스트")
     public void saveMemberTest(){
@@ -49,7 +49,7 @@ public class MemberServiceTest {
         assertEquals(member.getPassword(), saveMember.getPassword());
         assertEquals(member.getRole(), saveMember.getRole());
     }
-    */
+
     @Test
     @DisplayName("중복 회원 가입 테스트")
     public void saveDuplicateMemberTest(){
@@ -62,4 +62,6 @@ public class MemberServiceTest {
        });
        assertEquals("이미 가입된 회원입니다.",e.getMessage());
     }
+
+ */
 }

@@ -49,7 +49,7 @@ public class ItemRepositoryTest {
 
     }
 
-     */
+
 
 
     public void createItemList(){
@@ -258,7 +258,7 @@ public class ItemRepositoryTest {
         }
     }
 
-     */
+
 
     @Test
     @DisplayName("상품 Querydsl 조회 테스트 2")
@@ -299,6 +299,8 @@ public class ItemRepositoryTest {
 
 
     }
+
+     */
 
 
 

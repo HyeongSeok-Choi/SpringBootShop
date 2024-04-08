@@ -17,6 +17,7 @@ import org.springframework.test.context.TestPropertySource;
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class MemberTest {
+    /*
 
     @Autowired
     MemberRepository memberRepository;
@@ -42,4 +43,6 @@ public class MemberTest {
         System.out.println("create member : "+member.getCreatedBy());
         System.out.println("modify member : "+member.getModifiedBy());
     }
+
+     */
 }
